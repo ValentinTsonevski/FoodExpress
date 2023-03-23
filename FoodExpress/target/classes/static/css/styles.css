@@ -1,0 +1,380 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Open Sans', sans-serif;
+
+}
+/*home button*/
+.home{
+    color: white;
+}
+
+
+/*Header*/
+
+.main-nav {
+    min-height: 100vh;
+    width: 100%;
+    background: url('../images/banner.png') center;
+    background-size: cover;
+    position: relative;
+}
+
+
+.main-nav .logo {
+    width: 200px;
+    padding-left: 350px;
+    padding-top: 15px;
+}
+
+
+.nav-links{
+    flex: 1;
+    text-align: right;
+}
+.nav-links ul li{
+    list-style: none;
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.nav-links ul li a{
+    color: #fff;
+    text-decoration: none;
+    font-size: 17px;
+}
+
+.nav-links ul li::after {
+    content: '';
+    width: 0;
+    height: 3px;
+    background: #f44336;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links ul li:hover::after {
+    width: 100%;
+}
+
+.nav-links button {
+    color: white;
+    text-decoration: none;
+    height: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    font-size: 16px;
+    border: none;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.nav-links button::after {
+    content: "";
+    width: 0;
+    height: 2px;
+    background: white;
+    display: block;
+    margin: auto;
+    transition: 0.5s;
+}
+
+.nav-links button:hover::after {
+    width: 100%;
+}
+
+/*Index*/
+
+.text-box{
+    width: 70%;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%) ;
+    text-align: center;
+}
+
+.text-box h1{
+    font-size: 65px;
+}
+
+.text-box p{
+    margin: 10px 0 40px;
+    color: white;
+    font-size: 30px;
+}
+
+
+/*как да изглежда на телефон*/
+/*@media(max-width: 700px) {*/
+/*    .text-box h1{*/
+/*        font-size: 40px;*/
+/*    }*/
+
+/*    .nav-links ul li{*/
+/*        display: block;*/
+/*    }*/
+
+/*    .nav-links{*/
+/*        position: absolute;*/
+/*        background: black;*/
+/*        height: 100vh;*/
+/*        width: 200px;*/
+/*        top: 0;*/
+/*        right: 0;*/
+/*        text-align: left;*/
+/*        z-index: 2;*/
+/*    }*/
+/*}*/
+
+/*.info div {*/
+/*    text-align: center;*/
+/*}*/
+
+
+/*About*/
+
+.info{
+    width: 70%;
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform:translate(-50%,-50%) ;
+    text-align: center;
+}
+
+.info h1{
+    text-align: center;
+    font-size: 65px;
+}
+
+.info p{
+    text-align: center;
+    margin: 10px 0 40px;
+    color: white;
+    font-size: 30px;
+}
+
+
+/*Login*/
+
+.logo-login{
+    width: 100px;
+    height: 50px;
+    padding-left: 350px;
+    padding-top: 15px;
+}
+
+.login-p{
+    min-height: 100vh;
+    width: 100%;
+    background: url('../images/banner.png') center;
+    background-size: cover;
+    position: relative;
+}
+
+.login-p .container{
+    position: center;
+    margin-left: 36%;
+    width: 440px;
+    height: 500px;
+    background-color: #232323;
+}
+
+.login-p .container h1{
+    color: #fff;
+    margin-top: 60px;
+    margin-left: 50px;
+}
+
+.login-p .container input{
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 320px;
+    height: 47px;
+    background-color: #333;
+    border-radius: 3px;
+    border: none;
+    font-size: 20px;
+}
+
+.login-p .container input::placeholder{
+    font-size: 17px;
+    margin-left: 15px;
+    padding: 12px;
+}
+
+.login-p .container input[type=submit]{
+    width: 320px;
+    height: 45px;
+    background-color: forestgreen;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.login-p .container input[type=checkbox]{
+    width: 25px;
+    height: 18px;
+    border-radius: 5px;
+}
+
+.login-p .container label{
+    color: rgb(125,119,119);
+}
+
+.login-p .content{
+    position: absolute;
+    margin-top: 80px;
+    font-size: 9px;
+    margin-left: 55px;
+}
+
+.login-p .content h2{
+    color: rgb(125,119,119);
+}
+
+.login-p .content a{
+    color: #fff;
+    text-decoration: none;
+}
+
+/*Register*/
+
+/*.logo-register{*/
+/*    width: 100px;*/
+/*    height: 50px;*/
+/*    padding-left: 350px;*/
+/*    padding-top: 15px;*/
+/*}*/
+
+.register-p{
+    min-height: 100vh;
+    width: 100%;
+    background: url('../images/banner.png') center;
+    background-size: cover;
+    position: relative;
+}
+
+.register-p .container{
+    position: center;
+    margin-left: 30%;
+    padding-right: 3%;
+    width: 800px;
+    height: 500px;
+    background-color: #232323;
+
+}
+
+.register-p .firstAndLast{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register-p .emailAndUsername{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register-p .passAndConfirmPass{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.register-p .addressAndSignUp{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+/*.register-p .address{*/
+/*    display: flex;*/
+/*   justify-content: center;*/
+/*    width: 100%;*/
+/*}*/
+
+.register-p .container h1{
+    color: #fff;
+    margin-top: 60px;
+    margin-left: 50px;
+}
+
+.register-p .container input{
+    margin-left: 50px;
+    margin-top: 20px;
+    width: 320px;
+    height: 47px;
+    background-color: #333;
+    border-radius: 3px;
+    border: none;
+    font-size: 20px;
+}
+
+.register-p .container input::placeholder{
+    font-size: 17px;
+    margin-left: 15px;
+    padding: 12px;
+}
+
+.register-p .container input[type=submit]{
+    width: 320px;
+    height: 45px;
+    background-color: forestgreen;
+    color: #fff;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.register-p .content{
+    position: absolute;
+    margin-top: 80px;
+    font-size: 9px;
+    margin-left: 55px;
+    text-align: center;
+
+}
+
+.register-p .content h2{
+    color: rgb(125,119,119);
+}
+
+.register-p .content a{
+    color: #fff;
+    text-decoration: none;
+}
+
+
+/*profile*/
+.profile-form{
+    width: 360px;
+    height: 350px;
+    border: 2px solid #5c9f39;
+    box-shadow: -3px -3px 7px #ffffff73,
+    3px 3px 5px rgba(94,104,121,0.288);
+    border-radius: 5px;
+    margin-top: 180px;
+    overflow: hidden;
+    /*background-color: #002136;*/
+    background-color: #232323;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 20px;
+    color: whitesmoke;
+}
+
+.profile-p p{
+    margin-bottom: 10px;
+}
+

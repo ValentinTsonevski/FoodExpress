@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>FoodExpress</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+
+</head>
+
+<body class="login-p">
+
+<!--<div class="logo-login">-->
+<!--    <a th:href="@{/}"><img src="/images/logo.png"></a>-->
+<!--</div>-->
+
+<div class="container">
+    <h1>Sign In</h1>
+
+
+    <form th:method="POST"
+          th:action="@{/users/login}">
+
+        <div class="form">
+            <label for="username"></label>
+            <input id="username"
+                   name="username"
+                   type="text"  min="5" max="50"
+                   placeholder="Username">
+
+            <label for="password"></label>
+            <input id="password"
+                   name="password"
+                   type="password" min="5" max="20"
+                   placeholder="Password">
+
+            <p th:if="${bad_credentials}"
+               class="errors alert alert-danger">
+                Invalid username or password.
+            </p>
+
+            <input type="submit" value="Sign In">
+
+
+        </div>
+
+        <div class="content">
+            <h2>New to FoodExpress ? <a th:href="@{/users/register}">Sign up now.</a></h2></br>
+            <h2>Click to go <a class="home" th:href="@{/}">Home</a> </h2>
+        </div>
+
+    </form>
+    <div class="form-check">
+        <input type="checkbox" class="form-check-input" id="remember-me" name="remember-me">
+        <label class="form-check-label" for="remember-me">Remember me</label>
+
+    </div>
+
+
+
+</div>
+
+
+</body>
+
+
+</html>
