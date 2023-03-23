@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<nav class="main-nav">
+
+    <a th:href="@{/}"><img src="/images/logo.png" class="logo"></a>
+
+    <div class="nav-links">
+
+        <ul>
+
+            <li>
+                <a href="/">Home</a>
+            </li>
+            <li>
+                <a th:href="@{/about}">About</a>
+            </li>
+
+            <th:block sec:authorize="!isAuthenticated()">
+                <li>
+                    <a th:href="@{/users/login}">Login</a>
+                </li>
+
+                <li>
+                    <a th:href="@{/users/register}">Register</a>
+                </li>
+            </th:block>
+
+            <th:block sec:authorize="isAuthenticated()">
+                <li>
+                    <a th:href="@{/users/profile}">Profile</a>
+                </li>
+
+                <li>
+                    <a>
+                        <form th:action="@{/users/logout}"
+                              th:method="POST" >
+                            <button type="submit">Logout</button>
+                        </form>
+                    </a>
+                </li>
+
+                <li>
+                    <a th:href="@{/users/products}">Products</a>
+                </li>
+            </th:block>
+
+            <th:block>
+                <li sec:authorize="hasRole('ADMIN')">
+
+                    <a href="/">Admin</a>
+                </li>
+            </th:block>
+
+
+            <!--      <li>-->
+            <!--        <a href="/">Series</a>-->
+            <!--      </li>-->
+
+            <!--      <li>-->
+            <!--        <a href="/">Movies</a>-->
+            <!--      </li>-->
+
+            <!--      <li>-->
+            <!--        <a href="/">My List</a>-->
+            <!--      </li>-->
+
+            <!--      <li>-->
+            <!--        <a href="/">New and Popular</a>-->
+            <!--      </li>-->
+
+            <!--      <li>-->
+            <!--        <a th:href="@{/contactUs}">Contact us</a>-->
+            <!--      </li>-->
+
+            <!--      <li>-->
+            <!--        <a href="/">Browse by Languages</a>-->
+            <!--      </li>-->
+
+
+
+        </ul>
+    </div>
+
+</nav>
+
+</html>
