@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head"></head>
+
+<body>
+<div class="cart">
+
+  <div th:replace="fragments/header :: header"></div>
+
+  <h2 class="my-cart">My Cart</h2>
+  <div th:if="${successMessage}">
+    <p class="success-message" th:text="${successMessage}"></p>
+  </div>
+
+  <div class="my-cart-all">
+
+    <div class="offers-my-cart"
+         th:each="offer : ${offers}"
+         th:object="${offer}">
+
+      <div class="card-img-top-wrapper">
+        <img class="card-img-top" th:src="*{image_url}" alt="Offer image">
+      </div>
+
+
+      <ul class=" list-group list-group-flush">
+        <li class="list-group-item">
+          <div class="card-text"> Name:
+            <th:block th:text="*{name}"></th:block>
+          </div>
+          <div class="card-text">Price:
+            <th:block th:text="*{price}"></th:block>
+            <th:block th:text="'£'"></th:block>
+          </div>
+          <div class="card-text">Weight:
+            <th:block th:text="*{weight}"></th:block>
+            <th:block th:text="grams"></th:block>
+          </div>
+
+          <form th:action="@{/cart/removeOffer/{id}(id=*{id})}" th:method="post">
+            <button class="remove-button" type="submit">Remove</button>
+          </form>
+        </li>
+      </ul>
+    </div>
+
+
+    <div class="total-price">
+    <label for="total-price">Total Price: £</label>
+    <input type="text" id="total-price" name="total-price" th:value="${totalPrice}" readonly>
+      <form class="buy-button" th:action="@{/cart/buy}" method="post">
+        <button class="button" type="submit">Buy</button>
+      </form>
+  </div>
+
+
+  </div>
+</div>
+</body>
+</html>

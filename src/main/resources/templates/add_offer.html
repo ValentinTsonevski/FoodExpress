@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Add New Offer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FoodExpress</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.1/css/fontawesome.min.css">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" th:href="@{/webjars/bootstrap/css/bootstrap.min.css}"  />
+</head>
+<body class="add-offer-page">
+
+<div class="container-fluid">
+  <div class="text-center"><h1>Add New Offer</h1></div>
+
+  <form th:action="@{/offers/add}" method="post" th:object="${offer}"
+        style="max-width: 500px; margin: 0 auto;">
+    <input type="hidden" th:field="*{id}">
+    <div class="border border-secondary rounded p-3">
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Description</label>
+        <div class="col-sm-8">
+          <input type="text" th:field="*{description}" class="form-control" required minlength="4" maxlength="35"/>
+          <p th:if="${#fields.hasErrors('image_url')}"
+             class="errors alert alert-bg-danger">
+            description is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Name</label>
+        <div class="col-sm-8">
+          <input type="text" th:field="*{name}" class="form-control" required minlength="2" maxlength="25" />
+          <p th:if="${#fields.hasErrors('name')}"
+             class="errors alert alert-bg-danger">
+            name is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Price</label>
+        <div class="col-sm-8">
+          <input type="text" th:field="*{price}" class="form-control" required minlength="1" maxlength="5"/>
+          <p th:if="${#fields.hasErrors('price')}"
+             class="errors alert alert-bg-danger">
+            Price is required.
+          </p>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label class="col-sm-4 col-form-label">Weight</label>
+        <div class="col-sm-8">
+          <input type="text" th:field="*{weight}" class="form-control" required minlength="2" maxlength="10" />
+          <p th:if="${#fields.hasErrors('weight')}"
+             class="errors alert alert-bg-danger">
+            Weight is required.
+          </p>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <div>Image</div>
+        <label class="text-white font-weight-bold" for="image_url"></label>
+        <input id="image_url"
+               th:field="*{image_url}"
+               type="url"
+               class="form-control"
+               placeholder="Put offer image URL here"/>
+
+        <p th:if="${#fields.hasErrors('image_url')}"
+           class="errors alert alert-bg-danger">
+          Image URL required.
+        </p>
+      </div>
+
+      <div class="text-center">
+        <button class="button"  type="submit" >Save</button>
+        <button class="button" type="button"  onclick="cancelForm()">Cancel</button>
+      </div>
+    </div>
+
+  </form>
+
+</div>
+<script type="text/javascript">
+  function cancelForm() {
+    window.location = "[[@{/offers/all}]]";
+  }
+</script>
+</body>
+</html>

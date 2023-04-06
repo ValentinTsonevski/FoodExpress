@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<header>
+    <nav class="main-nav">
+
+        <a th:href="@{/}"><img src="/images/logo.png" class="logo"></a>
+
+        <div class="nav-links">
+
+            <ul>
+                <li>
+                    <a href="/">Home</a>
+                </li>
+                <li>
+                    <a th:href="@{/about}">About</a>
+                </li>
+
+                <th:block sec:authorize="!isAuthenticated()">
+                    <li>
+                        <a th:href="@{/users/login}">Login</a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/users/register}">Register</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="isAuthenticated()">
+                    <li>
+                        <a th:href="@{/users/profile}">Profile</a>
+                    </li>
+                    <li>
+                        <a>
+                            <form th:action="@{/users/logout}"
+                                  th:method="POST">
+                                <button type="submit">Logout</button>
+                            </form>
+                        </a>
+                    </li>
+
+                    <li>
+                        <a th:href="@{/offers/all}">Offers</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/cart}">Cart</a>
+                    </li>
+                </th:block>
+
+                <th:block sec:authorize="hasRole('ADMIN')">
+                    <li>
+                        <a th:href="@{/offers/add}">Add offer</a>
+                    </li>
+                   <li>
+                       <a th:href="@{/admin/users/all}">All Users</a>
+                   </li>
+                </th:block>
+
+            </ul>
+        </div>
+
+    </nav>
+</header>
+</html>

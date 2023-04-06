@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+
+<body class="error-page">
+
+<div th:replace="fragments/header :: header"></div>
+
+<main>
+
+    <div class="error-form" >
+            <div class="text" >Oops 😔</div>
+            <h5 class="text">
+                There is no <th:block th:text="${itemType}"/> with ID <strong><th:block th:text="${itemId}"/></strong>
+            </h5>
+    </div>
+
+</main>
+<footer></footer>
+</body>
+</html>
