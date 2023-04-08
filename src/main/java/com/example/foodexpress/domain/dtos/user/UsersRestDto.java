@@ -1,6 +1,6 @@
-package com.example.foodexpress.domain.dtos.banding;
+package com.example.foodexpress.domain.dtos.user;
 
-public class UsersRestDTO {
+public class UsersRestDto {
     private String firstName;
     private String lastName;
     private String username;
@@ -8,14 +8,14 @@ public class UsersRestDTO {
     private String address;
 
 
-    public UsersRestDTO() {
+    public UsersRestDto() {
     }
 
     public String getFirstName() {
         return firstName;
     }
 
-    public UsersRestDTO setFirstName(String firstName) {
+    public UsersRestDto setFirstName(String firstName) {
         this.firstName = firstName;
         return this;
     }
@@ -24,7 +24,7 @@ public class UsersRestDTO {
         return lastName;
     }
 
-    public UsersRestDTO setLastName(String lastName) {
+    public UsersRestDto setLastName(String lastName) {
         this.lastName = lastName;
         return this;
     }
@@ -33,7 +33,7 @@ public class UsersRestDTO {
         return username;
     }
 
-    public UsersRestDTO setUsername(String username) {
+    public UsersRestDto setUsername(String username) {
         this.username = username;
         return this;
     }
@@ -42,7 +42,7 @@ public class UsersRestDTO {
         return email;
     }
 
-    public UsersRestDTO setEmail(String email) {
+    public UsersRestDto setEmail(String email) {
         this.email = email;
         return this;
     }
@@ -51,7 +51,7 @@ public class UsersRestDTO {
         return address;
     }
 
-    public UsersRestDTO setAddress(String address) {
+    public UsersRestDto setAddress(String address) {
         this.address = address;
         return this;
     }

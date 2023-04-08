@@ -1,4 +1,4 @@
-package com.example.foodexpress.domain.dtos.view;
+package com.example.foodexpress.domain.dtos.user;
 
 public class UserProfileView {
     private Long id;

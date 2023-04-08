@@ -15,14 +15,14 @@ public class WorkingTimeInterceptor implements HandlerInterceptor {
                            HttpServletResponse response,
                            Object handler) throws Exception {
 
-    var requestURI = request.getRequestURI();
-    if (!requestURI.equals("/working-time")) {
-      LocalTime now = LocalTime.now();
-      if (now.getHour() <= 11) {
-        response.sendRedirect("/working-time");
-        return false;
-      }
-    }
+//    var requestURI = request.getRequestURI();
+//    if (!requestURI.equals("/working-time")) {
+//      LocalTime now = LocalTime.now();
+//      if (now.getHour() <= 11) {
+//        response.sendRedirect("/working-time");
+//        return false;
+//      }
+//    }
 
     return HandlerInterceptor.super.preHandle(request, response, handler);
   }

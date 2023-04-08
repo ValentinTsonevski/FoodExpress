@@ -1,9 +1,9 @@
 package com.example.foodexpress.service;
 
-import com.example.foodexpress.domain.dtos.banding.UserRegisterFormDto;
-import com.example.foodexpress.domain.dtos.banding.UsersRestDTO;
-import com.example.foodexpress.domain.dtos.view.AllUsersViewDto;
-import com.example.foodexpress.domain.entity.UserEntity;
+import com.example.foodexpress.domain.dtos.user.UserDto;
+import com.example.foodexpress.domain.dtos.user.UserRegisterFormDto;
+import com.example.foodexpress.domain.dtos.user.UsersRestDto;
+import com.example.foodexpress.domain.dtos.user.AllUsersViewDto;
 import javassist.tools.rmi.ObjectNotFoundException;
 
 import java.util.List;
@@ -12,18 +12,18 @@ import java.util.Optional;
 public interface UserService {
     void registerUser(UserRegisterFormDto userRegisterFormDto);
 
-    UserEntity getUserByEmail(String email);
+    UserDto getUserByEmail(String email);
 
     List<AllUsersViewDto> getAllUsers();
 
-    Optional<UserEntity> findUserByUsername(String username);
+    Optional<UserDto> findUserByUsername(String username);
 
 
-    void saveUser(UserEntity user);
+    void saveUser(UserDto user);
 
     void deleteUserREST(Long id) throws ObjectNotFoundException;
 
-     List<UsersRestDTO> getAllUsersRest();
+     List<UsersRestDto> getAllUsersRest();
 
 
 }

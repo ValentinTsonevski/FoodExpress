@@ -1,27 +1,25 @@
-package com.example.foodexpress.domain.dtos.model;
+package com.example.foodexpress.domain.dtos.offer;
 
-import jakarta.validation.constraints.NotNull;
-
-public class OfferDetailDto {
+public class OfferDto {
     private Long id;
     private String description;
-    @NotNull
+
     private String name;
-    @NotNull
+
     private double price;
-    @NotNull
+
     private int weight;
-    @NotNull
+
     private String image_url;
 
-    public OfferDetailDto() {
+    public OfferDto() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public OfferDetailDto setId(Long id) {
+    public OfferDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -30,7 +28,7 @@ public class OfferDetailDto {
         return description;
     }
 
-    public OfferDetailDto setDescription(String description) {
+    public OfferDto setDescription(String description) {
         this.description = description;
         return this;
     }
@@ -39,7 +37,7 @@ public class OfferDetailDto {
         return name;
     }
 
-    public OfferDetailDto setName(String name) {
+    public OfferDto setName(String name) {
         this.name = name;
         return this;
     }
@@ -48,7 +46,7 @@ public class OfferDetailDto {
         return price;
     }
 
-    public OfferDetailDto setPrice(double price) {
+    public OfferDto setPrice(double price) {
         this.price = price;
         return this;
     }
@@ -57,7 +55,7 @@ public class OfferDetailDto {
         return weight;
     }
 
-    public OfferDetailDto setWeight(int weight) {
+    public OfferDto setWeight(int weight) {
         this.weight = weight;
         return this;
     }
@@ -66,7 +64,7 @@ public class OfferDetailDto {
         return image_url;
     }
 
-    public OfferDetailDto setImage_url(String image_url) {
+    public OfferDto setImage_url(String image_url) {
         this.image_url = image_url;
         return this;
     }

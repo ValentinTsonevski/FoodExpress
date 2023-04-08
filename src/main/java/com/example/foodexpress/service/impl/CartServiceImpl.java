@@ -1,10 +1,13 @@
 package com.example.foodexpress.service.impl;
 
+import com.example.foodexpress.domain.dtos.cart.CartDto;
+import com.example.foodexpress.domain.dtos.offer.OfferDto;
+import com.example.foodexpress.domain.dtos.user.UserDto;
 import com.example.foodexpress.domain.entity.CartEntity;
-import com.example.foodexpress.domain.entity.OfferEntity;
 import com.example.foodexpress.domain.entity.UserEntity;
 import com.example.foodexpress.repository.CartRepository;
 import com.example.foodexpress.service.CartService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,37 +19,41 @@ import java.util.List;
 public class CartServiceImpl implements CartService {
 
     private final CartRepository cartRepository;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public CartServiceImpl(CartRepository cartRepository) {
+    public CartServiceImpl(CartRepository cartRepository, ModelMapper modelMapper) {
         this.cartRepository = cartRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
-    public CartEntity save(CartEntity cart) {
-       return this.cartRepository.saveAndFlush(cart) ;
+    public CartDto save(CartDto cartDto) {
+        CartEntity cartEntity = mapCartDtoToEntity(cartDto);
+        this.cartRepository.saveAndFlush(cartEntity);
+        return mapCartEntityToDto(cartEntity);
     }
 
     @Override
-    public void addOffersToCart(CartEntity cart, OfferEntity offer) {
+    public void addOffersToCart(CartDto cart, OfferDto offer) {
         if (cart == null || offer == null) {
             return;
         }
 
-        List<OfferEntity> offerEntityList = cart.getOffers();
-        if (offerEntityList == null) {
-            offerEntityList = new ArrayList<>();
+        List<OfferDto> offerDtoList = cart.getOffers();
+        if (offerDtoList == null) {
+            offerDtoList = new ArrayList<>();
         }
 
-        offerEntityList.add(offer);
-        cart.setOffers(offerEntityList);
+        offerDtoList.add(offer);
+        cart.setOffers(offerDtoList);
     }
 
     @Override
-    public void removeOffer(UserEntity currentUser, OfferEntity offerToRemove) {
-        CartEntity cart = currentUser.getCart();
+    public void removeOffer(UserDto currentUser, OfferDto offerToRemove) {
+        CartDto cart = currentUser.getCart();
         if (cart != null) {
-            List<OfferEntity> offers = cart.getOffers();
+            List<OfferDto> offers = cart.getOffers();
             if (offers != null && !offers.isEmpty()) {
                 if (offers.removeIf(offer -> offer.getId().equals(offerToRemove.getId()))) {
                     save(cart);
@@ -56,23 +63,43 @@ public class CartServiceImpl implements CartService {
     }
 
     @Override
-    public BigDecimal calculateTotalPrice(CartEntity cart) {
+    public BigDecimal calculateTotalPrice(CartDto cart) {
         BigDecimal totalPrice = BigDecimal.ZERO;
-        for (OfferEntity offer : cart.getOffers()) {
+        for (OfferDto offer : cart.getOffers()) {
             totalPrice = totalPrice.add(BigDecimal.valueOf(offer.getPrice()));
         }
         return totalPrice;
     }
 
     @Override
-    public void clearCart(CartEntity cart) {
-        cart.setOffers(new ArrayList<>());
-        cart.setTotalPrice(BigDecimal.ZERO);
-        cartRepository.saveAndFlush(cart);
+    public void clearCart(CartDto cartDto) {
+        cartDto.setOffers(new ArrayList<>());
+        cartDto.setTotalPrice(BigDecimal.ZERO);
+
+        CartEntity cartEntity = mapCartDtoToEntity(cartDto);
+        cartRepository.saveAndFlush(cartEntity);
     }
+
     @Override
-    public CartEntity findCartByUser(UserEntity user){
-        return this.cartRepository.findCartEntityByUser(user);
+    public CartDto findCartByUser(UserDto userDto) {
+        UserEntity userEntity = this.modelMapper.map(userDto, UserEntity.class);
+        CartEntity cartEntityByUser = this.cartRepository.findCartEntityByUser(userEntity);
+
+        return mapCartEntityToDto(cartEntityByUser);
+    }
+
+    @Override
+    public void saveSchedule(CartEntity cartEntity) {
+        this.cartRepository.save(cartEntity);
+    }
+
+
+    private CartEntity mapCartDtoToEntity(CartDto cartDto) {
+        return this.modelMapper.map(cartDto, CartEntity.class);
+    }
+
+    private CartDto mapCartEntityToDto(CartEntity cartEntity) {
+        return this.modelMapper.map(cartEntity, CartDto.class);
     }
 
 

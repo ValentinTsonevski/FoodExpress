@@ -1,22 +1,21 @@
 package com.example.foodexpress.service;
 
-import com.example.foodexpress.customExceptions.OfferNotFoundException;
-import com.example.foodexpress.domain.dtos.model.OfferDetailDto;
-import com.example.foodexpress.domain.dtos.view.OfferDetailsViewDto;
-import com.example.foodexpress.domain.entity.OfferEntity;
+import com.example.foodexpress.domain.dtos.offer.OfferDto;
+import com.example.foodexpress.domain.dtos.offer.OfferDetailsViewDto;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
 
 public interface OfferService {
     Page<OfferDetailsViewDto> getAllOffers(Pageable pageable);
 
-    OfferDetailDto findById(Long id);
-   OfferEntity getOfferById(Long id);
-     void updateOffer(OfferEntity offer);
-    OfferEntity editOffer(OfferEntity offerEntity, OfferDetailDto offerDetailDto);
-    void saveOffer(OfferDetailDto offer);
+    OfferDto findById(Long id);
 
-     void deleteOfferById(Long id) ;
+    void editOffer(OfferDto offerDto, Long id);
+
+    void saveOffer(OfferDto offer);
+
+    void deleteOfferById(Long id);
+
+
 
 }

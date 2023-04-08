@@ -1,6 +1,5 @@
 package com.example.foodexpress.web;
 
-import com.example.foodexpress.service.UserService;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,12 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/users")
 public class LoginController {
 
-    private final UserService userService;
-
-
-    public LoginController(UserService userService) {
-        this.userService = userService;
-    }
 
     @GetMapping("/login")
     public String login(){

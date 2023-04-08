@@ -2,7 +2,6 @@ package com.example.foodexpress.domain.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Min;
-import jakarta.validation.constraints.Positive;
 
 import java.math.BigDecimal;
 import java.util.List;

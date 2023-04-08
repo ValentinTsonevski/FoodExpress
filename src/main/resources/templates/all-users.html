@@ -6,6 +6,10 @@
 
 <div th:replace="fragments/header :: header"></div>
 
+<div th:if="${successMessage}">
+  <p class="success-message" th:text="${successMessage}"></p>
+</div>
+
 <table>
   <thead>
   <tr>

@@ -1,9 +1,6 @@
 package com.example.foodexpress.service.impl;
 
-import com.example.foodexpress.domain.dtos.banding.UserRegisterFormDto;
-import com.example.foodexpress.domain.dtos.banding.UsersRestDTO;
-import com.example.foodexpress.domain.dtos.model.UserRoleModel;
-import com.example.foodexpress.domain.dtos.view.AllUsersViewDto;
+import com.example.foodexpress.domain.dtos.user.*;
 import com.example.foodexpress.domain.entity.UserEntity;
 import com.example.foodexpress.domain.enums.UserRoleEnum;
 import com.example.foodexpress.repository.UserRepository;
@@ -56,8 +53,9 @@ public class UserServiceImpl implements UserService, DataBaseInitService {
     }
 
     @Override
-    public UserEntity getUserByEmail(String email) {
-        return this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(EMAIL_NOT_FOUND));
+    public UserDto getUserByEmail(String email) {
+        UserEntity userEntity = this.userRepository.findByEmail(email).orElseThrow(() -> new UsernameNotFoundException(EMAIL_NOT_FOUND));
+      return   mapUserEntityToDto(userEntity);
     }
 
     @Override
@@ -90,13 +88,14 @@ public class UserServiceImpl implements UserService, DataBaseInitService {
     }
 
     @Override
-    public Optional<UserEntity> findUserByUsername(String username) {
-        return userRepository.findByUsername(username);
+    public Optional<UserDto> findUserByUsername(String username) {
+        return userRepository.findByUsername(username).map(this::mapUserEntityToDto);
     }
 
     @Override
-    public void saveUser(UserEntity user) {
-        this.userRepository.saveAndFlush(user);
+    public void saveUser(UserDto userDto) {
+        UserEntity userEntity = mapUserDtoToEntity(userDto);
+        this.userRepository.saveAndFlush(userEntity);
     }
 
 
@@ -105,7 +104,7 @@ public class UserServiceImpl implements UserService, DataBaseInitService {
                 .setUsername(userEntity.getUsername())
                 .setRoles(userEntity.getRoles()
                         .stream()
-                        .map(roleEntity -> this.modelMapper.map(roleEntity, UserRoleModel.class))
+                        .map(roleEntity -> this.modelMapper.map(roleEntity, UserRoleModelDto.class))
                         .collect(Collectors.toList()));
 
     }
@@ -119,12 +118,19 @@ public class UserServiceImpl implements UserService, DataBaseInitService {
     }
 
     @Override
-    public List<UsersRestDTO> getAllUsersRest() {
+    public List<UsersRestDto> getAllUsersRest() {
         List<UserEntity> allUsers = this.userRepository.findAll().stream().toList();
 
-        return allUsers.stream().map(user -> this.modelMapper.map(user, UsersRestDTO.class)).toList();
+        return allUsers.stream().map(user -> this.modelMapper.map(user, UsersRestDto.class)).toList();
     }
 
+
+    private   UserDto mapUserEntityToDto(UserEntity userEntity){
+     return  this.modelMapper.map(userEntity,UserDto.class);
+    }
+    private UserEntity mapUserDtoToEntity(UserDto userDto){
+       return this.modelMapper.map(userDto,UserEntity.class);
+    }
 
 
 }

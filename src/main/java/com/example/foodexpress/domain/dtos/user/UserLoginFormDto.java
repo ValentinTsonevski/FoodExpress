@@ -1,4 +1,4 @@
-package com.example.foodexpress.domain.dtos.banding;
+package com.example.foodexpress.domain.dtos.user;
 
 public class UserLoginFormDto {
     private String username;

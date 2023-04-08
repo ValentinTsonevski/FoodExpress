@@ -1,18 +1,18 @@
-package com.example.foodexpress.domain.dtos.model;
+package com.example.foodexpress.domain.dtos.user;
 
-public class UserRoleModel {
+public class UserRoleModelDto {
 
     private Long id;
     private String role;
 
-    public UserRoleModel() {
+    public UserRoleModelDto() {
     }
 
     public Long getId() {
         return id;
     }
 
-    public UserRoleModel setId(Long id) {
+    public UserRoleModelDto setId(Long id) {
         this.id = id;
         return this;
     }
@@ -21,7 +21,7 @@ public class UserRoleModel {
         return role;
     }
 
-    public UserRoleModel setRole(String role) {
+    public UserRoleModelDto setRole(String role) {
         this.role = role;
         return this;
     }

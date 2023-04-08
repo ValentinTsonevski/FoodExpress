@@ -1,11 +1,12 @@
 package com.example.foodexpress.web;
 
-import com.example.foodexpress.domain.entity.CartEntity;
-import com.example.foodexpress.domain.entity.OfferEntity;
-import com.example.foodexpress.domain.entity.UserEntity;
+import com.example.foodexpress.domain.dtos.cart.CartDto;
+import com.example.foodexpress.domain.dtos.offer.OfferDto;
+import com.example.foodexpress.domain.dtos.user.UserDto;
 import com.example.foodexpress.service.CartService;
 import com.example.foodexpress.service.OfferService;
 import com.example.foodexpress.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -29,6 +30,7 @@ public class CartController {
     private final UserService userService;
     private final CartService cartService;
 
+    @Autowired
     public CartController(OfferService offerService, UserService userService, CartService cartService) {
         this.offerService = offerService;
         this.userService = userService;
@@ -40,14 +42,17 @@ public class CartController {
     public String getCart(Model model, Principal principal) {
 
         String currentUserEmail = principal.getName();
-        UserEntity currentUser = this.userService.getUserByEmail(currentUserEmail);
+        UserDto currentUser = this.userService.getUserByEmail(currentUserEmail);
 
-        CartEntity cart = currentUser.getCart();
-        List<OfferEntity> offers = new ArrayList<>();
+        CartDto cart = currentUser.getCart();
+        List<OfferDto> offers = new ArrayList<>();
 
         if (cart != null) {
             offers = cart.getOffers();
+
             cart.setTotalPrice(cartService.calculateTotalPrice(cart));
+            this.cartService.save(cart);
+
             model.addAttribute("totalPrice", cart.getTotalPrice());
         } else {
             model.addAttribute("totalPrice", BigDecimal.ZERO);
@@ -60,18 +65,23 @@ public class CartController {
     @PostMapping("/cart/addOffer/{id}")
     public String addOfferToCart(@PathVariable("id") Long id, Principal principal, RedirectAttributes redirectAttributes) {
         String currentUserEmail = principal.getName();
-        UserEntity currentUser = this.userService.getUserByEmail(currentUserEmail);
-        OfferEntity offerToAdd = this.offerService.getOfferById(id);
+        UserDto currentUser = this.userService.getUserByEmail(currentUserEmail);
 
-        CartEntity cart = currentUser.getCart();
+        OfferDto offerToAdd = this.offerService.findById(id);
+
+        CartDto cart = currentUser.getCart();
         if (cart == null) {
-            cart = new CartEntity();
+            cart = new CartDto();
             currentUser.setCart(cart);
             cart.setUser(currentUser);
         }
 
-
         this.cartService.addOffersToCart(cart, offerToAdd);
+
+        if(cart.getTotalPrice() == null || cart.getTotalPrice().equals(BigDecimal.ZERO)){
+            cart.setTotalPrice(this.cartService.calculateTotalPrice(currentUser.getCart()));
+        }
+
         this.cartService.save(cart);
 
         redirectAttributes.addFlashAttribute("successMessage", offerToAdd.getName() + OFFER_ADDED);
@@ -82,8 +92,8 @@ public class CartController {
     @PostMapping("/cart/removeOffer/{id}")
     public String removeOfferFromCart(@PathVariable("id") Long id, Principal principal, RedirectAttributes redirectAttributes) {
         String currentUserEmail = principal.getName();
-        UserEntity currentUser = this.userService.getUserByEmail(currentUserEmail);
-        OfferEntity offerToRemove = this.offerService.getOfferById(id);
+        UserDto currentUser = this.userService.getUserByEmail(currentUserEmail);
+        OfferDto offerToRemove = this.offerService.findById(id);
 
         this.cartService.removeOffer(currentUser, offerToRemove);
 
@@ -96,10 +106,12 @@ public class CartController {
     @PostMapping("/cart/buy")
     public String buyCart(Model model, Principal principal, RedirectAttributes redirectAttributes) {
         String email = principal.getName();
-        UserEntity user = userService.getUserByEmail(email);
-        CartEntity cart = cartService.findCartByUser(user);
+        UserDto user = userService.getUserByEmail(email);
+        CartDto cart = cartService.findCartByUser(user);
 
         cartService.clearCart(cart);
+        cart.setTotalPrice(BigDecimal.ZERO);
+
         model.addAttribute("cart", cart);
 
         redirectAttributes.addFlashAttribute("successMessage", BOUGHT_OFFERS);

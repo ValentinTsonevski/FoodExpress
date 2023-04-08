@@ -1,4 +1,4 @@
-package com.example.foodexpress.domain.dtos.banding;
+package com.example.foodexpress.domain.dtos.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Size;

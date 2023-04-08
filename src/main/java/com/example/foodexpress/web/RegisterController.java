@@ -1,9 +1,10 @@
 package com.example.foodexpress.web;
 
-import com.example.foodexpress.domain.dtos.banding.UserRegisterFormDto;
+import com.example.foodexpress.domain.dtos.user.UserRegisterFormDto;
 import com.example.foodexpress.repository.UserRepository;
 import com.example.foodexpress.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,7 +13,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import static com.example.foodexpress.outputs.SuccessMessages.OFFER_REMOVE;
 import static com.example.foodexpress.outputs.SuccessMessages.REGISTER;
 
 @Controller
@@ -23,6 +23,7 @@ public class RegisterController {
     private final UserService userService;
     private final UserRepository userRepository;
 
+    @Autowired
     public RegisterController(UserService userService, UserRepository userRepository) {
         this.userService = userService;
         this.userRepository = userRepository;

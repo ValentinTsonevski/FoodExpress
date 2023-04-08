@@ -1,10 +1,10 @@
-package com.example.foodexpress.domain.dtos.view;
+package com.example.foodexpress.domain.dtos.offer;
 
 
 public class OfferDetailsViewDto {
     private Long id;
     private String description;
-    private String imageUrl;
+    private String image_url;
     private String name;
     private double price;
     private double weight;
@@ -31,12 +31,12 @@ public class OfferDetailsViewDto {
         return this;
     }
 
-    public String getImageUrl() {
-        return imageUrl;
+    public String getImage_url() {
+        return image_url;
     }
 
-    public OfferDetailsViewDto setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
+    public OfferDetailsViewDto setImage_url(String image_url) {
+        this.image_url = image_url;
         return this;
     }
 

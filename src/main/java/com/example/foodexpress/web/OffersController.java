@@ -1,11 +1,10 @@
 package com.example.foodexpress.web;
 
 import com.example.foodexpress.customExceptions.ObjectNotFoundException;
-import com.example.foodexpress.customExceptions.OfferNotFoundException;
-import com.example.foodexpress.domain.dtos.model.OfferDetailDto;
-import com.example.foodexpress.domain.entity.OfferEntity;
+import com.example.foodexpress.domain.dtos.offer.OfferDto;
 import com.example.foodexpress.service.OfferService;
 import jakarta.validation.Valid;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
@@ -22,8 +21,11 @@ import static com.example.foodexpress.outputs.SuccessMessages.*;
 public class OffersController {
     private final OfferService offerService;
 
+
+    @Autowired
     public OffersController(OfferService offerService) {
         this.offerService = offerService;
+
     }
 
     @GetMapping("/all")
@@ -56,13 +58,13 @@ public class OffersController {
 
     @GetMapping("/add")
     public String addOffer(Model model) {
-        model.addAttribute("offer", new OfferDetailDto());
+        model.addAttribute("offer", new OfferDto());
 
         return "add_offer";
     }
 
     @PostMapping("/add")
-    public String saveOffer(@Valid OfferDetailDto offer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
+    public String saveOffer(@Valid OfferDto offer, BindingResult bindingResult, RedirectAttributes redirectAttributes) {
 
         if (bindingResult.hasErrors()) {
             redirectAttributes.addFlashAttribute("offer", offer);
@@ -78,14 +80,15 @@ public class OffersController {
 
     @GetMapping("/delete/{id}")
     public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,Model model) {
-        OfferEntity offerEntity = this.offerService.getOfferById(id);
-        if(offerEntity == null){
+        OfferDto offerDto = this.offerService.findById(id);
+        if(offerDto == null){
             throw new ObjectNotFoundException(id,"offer");
         }
         model.addAttribute("itemId",id);
-        model.addAttribute("itemType",offerEntity);
+        model.addAttribute("itemType",offerDto);
 
-            offerService.deleteOfferById(id);
+
+            this.offerService.deleteOfferById(id);
 
             redirectAttributes.addFlashAttribute("successMessage", OFFER_DELETED);
 
@@ -95,11 +98,12 @@ public class OffersController {
     @GetMapping("/{id}/edit")
     public String edit(@PathVariable("id") Long id,
                        Model model) {
-        OfferDetailDto offer = this.offerService.findById(id);
+        OfferDto offer = this.offerService.findById(id);
 
         if (offer == null) {
             throw new ObjectNotFoundException(id, "offer");
         }
+
         model.addAttribute("itemId", id);
         model.addAttribute("itemType", offer);
 
@@ -108,19 +112,17 @@ public class OffersController {
         return "edit_offer";
     }
 
-
     @PostMapping("/{id}/edit")
-    public String editOffer(@ModelAttribute("offer") OfferEntity offerEntity, RedirectAttributes redirectAttributes) {
-        Long id = offerEntity.getId();
-        OfferDetailDto seriesDTO = this.offerService.findById(id);
+    public String editMovie(@ModelAttribute("movie") OfferDto offerDto, RedirectAttributes redirectAttributes) {
+        Long id = offerDto.getId();
+        this.offerService.editOffer(offerDto, id);
 
-        OfferEntity offer = this.offerService.editOffer(offerEntity, seriesDTO);
-        this.offerService.updateOffer(offer);
+        redirectAttributes.addFlashAttribute("successMessage", offerDto.getName() + OFFER_EDITED);
 
-        redirectAttributes.addFlashAttribute("successMessage", offer.getName() + OFFER_EDITED);
         return "redirect:/offers/all";
 
     }
+
 
 
 }

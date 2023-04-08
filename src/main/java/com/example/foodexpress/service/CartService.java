@@ -1,23 +1,26 @@
 package com.example.foodexpress.service;
 
+import com.example.foodexpress.domain.dtos.cart.CartDto;
+import com.example.foodexpress.domain.dtos.offer.OfferDto;
+import com.example.foodexpress.domain.dtos.user.UserDto;
 import com.example.foodexpress.domain.entity.CartEntity;
-import com.example.foodexpress.domain.entity.OfferEntity;
-import com.example.foodexpress.domain.entity.UserEntity;
 
 import java.math.BigDecimal;
 
 public interface CartService {
 
- CartEntity save(CartEntity cart);
+ CartDto save(CartDto cart);
 
- void addOffersToCart(CartEntity cart,OfferEntity offer);
+ void addOffersToCart(CartDto cart, OfferDto offer);
 
- void removeOffer(UserEntity currentUser, OfferEntity offerToRemove);
+ void removeOffer(UserDto currentUser, OfferDto offerToRemove);
 
 
- BigDecimal calculateTotalPrice(CartEntity cart);
+ BigDecimal calculateTotalPrice(CartDto cart);
 
- void clearCart(CartEntity cart);
+ void clearCart(CartDto cart);
 
- CartEntity findCartByUser(UserEntity user);
+ CartDto findCartByUser(UserDto user);
+
+ void saveSchedule(CartEntity cartEntity);
 }

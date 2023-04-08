@@ -3,16 +3,16 @@ package com.example.foodexpress.domain.entity;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Size;
 
-import java.util.List;
 
 @Entity
 @Table(name = "offers")
 public class OfferEntity extends BaseEntity{
 
     @Column(nullable = false)
+    @Size(min = 2)
     private String name;
 
     @Column(nullable = false)

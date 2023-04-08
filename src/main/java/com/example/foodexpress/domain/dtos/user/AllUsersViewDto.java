@@ -1,6 +1,4 @@
-package com.example.foodexpress.domain.dtos.view;
-
-import com.example.foodexpress.domain.dtos.model.UserRoleModel;
+package com.example.foodexpress.domain.dtos.user;
 
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +6,7 @@ import java.util.List;
 public class AllUsersViewDto {
     private Long id;
     private String username;
-    private List<UserRoleModel> roles;
+    private List<UserRoleModelDto> roles;
 
     public AllUsersViewDto() {
     }
@@ -31,11 +29,11 @@ public class AllUsersViewDto {
         return this;
     }
 
-    public List<UserRoleModel> getRoles() {
+    public List<UserRoleModelDto> getRoles() {
         return Collections.unmodifiableList(roles);
     }
 
-    public AllUsersViewDto setRoles(List<UserRoleModel> roles) {
+    public AllUsersViewDto setRoles(List<UserRoleModelDto> roles) {
         this.roles = roles;
         return this;
     }
