@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="fragments/head"></head>
+
+<body class="login-p">
+<div th:if="${successMessage}">
+    <p class="success-message" th:text="${successMessage}"></p>
+</div>
+
+<div class="container">
+    <h1>Sign In</h1>
+
+
+    <form th:method="POST"
+          th:action="@{/users/login}">
+
+        <div class="form">
+            <label for="username"></label>
+            <input id="username"
+                   name="username"
+                   type="text"  min="5" max="50"
+                   placeholder="Username">
+
+            <label for="password"></label>
+            <input id="password"
+                   name="password"
+                   type="password" min="5" max="20"
+                   placeholder="Password">
+
+            <p th:if="${bad_credentials}"
+               class="errors alert alert-danger">
+                Invalid username or password.
+            </p>
+
+            <input type="submit" value="Sign In">
+
+
+        </div>
+
+        <div class="content">
+            <h2>New to FoodExpress ? <a th:href="@{/users/register}">Sign up now.</a></h2></br>
+            <h2>Click to go <a class="home" th:href="@{/}">Home</a> </h2>
+        </div>
+
+    </form>
+
+</div>
+
+</body>
+
+</html>

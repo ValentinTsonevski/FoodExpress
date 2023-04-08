@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+
+<body class="profile-page">
+
+<div th:if="${successMessage}">
+    <p class="success-message" th:text="${successMessage}"></p>
+</div>
+
+<div class="main-nav">
+
+    <div class="profile-form" th:object="${user}">
+        <h1>Welcome, <span th:text="*{username}"></span></h1>
+
+        <h2>Current Details:</h2>
+        <p>
+            <strong>First Name:</strong> <span th:text="*{firstName}"></span>
+        </p>
+        <p>
+            <strong>Last Name:</strong> <span th:text="*{lastName}"></span>
+        </p>
+        <p>
+            <strong>Username:</strong> <span th:text="*{username}"></span>
+            <button class="button" th:onclick="'javascript:toggleEdit(\'username\')'">Edit</button>
+        </p>
+        <p>
+            <strong>Email:</strong> <span th:text="*{email}"></span>
+            <button class="button" th:onclick="'javascript:toggleEdit(\'email\')'">Edit</button>
+        </p>
+
+        <h2>Edit Details:</h2>
+        <form th:action="@{/users/profile}" method="POST">
+            <input type="hidden" name="id" th:value="*{id}"/>
+
+
+            <div id="username" style="display:none;">
+                <label for="usernameInput">Username:</label>
+                <input type="text" id="usernameInput" name="username" th:value="${user.username}"/>
+                <!--                <button type="button" onclick="toggleEdit('username')">Cancel</button>-->
+            </div>
+
+            <div id="email" style="display:none;">
+                <label for="emailInput">Email:</label>
+                <input type="email" id="emailInput" name="email" th:value="${user.email}"/>
+                <!--                <button type="button" onclick="toggleEdit('email')">Cancel</button>-->
+            </div>
+
+            <button class="button" type="submit">Save</button>
+        </form>
+
+        <h2>Click to go <a class="home" th:href="@{/}">Home</a></h2>
+
+        <script th:inline="javascript">
+            function toggleEdit(id) {
+                var element = document.getElementById(id);
+                var currentDisplay = element.style.display;
+
+                if (currentDisplay === "") {
+                    element.style.display = "block";
+                } else {
+                    element.style.display = "";
+                }
+            }
+        </script>
+
+    </div>
+
+</div>
+</body>
+</html>

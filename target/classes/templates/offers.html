@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head th:replace="fragments/head"></head>
+
+<body>
+
+<div class="all-offers">
+    <div th:replace="fragments/header :: header"></div>
+
+    <div th:if="${successMessage}">
+        <p class="success-message" th:text="${successMessage}"></p>
+    </div>
+
+    <div class="offers"
+         th:each="offer: ${offers}"
+         th:object="${offer}">
+
+
+
+        <div class="offer card col-sm-6 col-md-3  col-lg-2 m-1 p-0">
+            <div class="card-img-top-wrapper">
+                <img class="card-img-top" th:src="*{image_url}" alt="Offer image">
+            </div>
+
+            <ul class="offer-details list-group list-group-flush">
+                <li class="list-group-item">
+
+                    <th:block th:text="*{name}"></th:block>
+
+                    <div class="card-text"> Price:
+                        <th:block th:text="*{price}"></th:block>
+                        <th:block th:text="'£'"></th:block>
+                    </div>
+                    <div class="card-text"> Weight:
+                        <th:block th:text="*{weight}"></th:block>
+                        <th:block th:text="grams"></th:block>
+                    </div>
+                </li>
+            </ul>
+
+            <div class="offer-change">
+                <a class="card-link" th:href="@{/offers/{id}(id=*{id})}">Details</a>
+                <form th:action="@{/cart/addOffer/{id}(id=*{id})}" method="post">
+                    <button class="add-offer-cart" type="submit">Add to cart</button>
+                </form>
+        </div>
+            <div class="offer-delete">
+                <a class="h4" th:href="@{'/offers/delete/' + *{id}}"
+                   th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Delete </a>
+            </div>
+            <div class="offer-edit">
+            <a th:href="@{/offers/{id}/edit(id=*{id})}"
+               th:if="${#authorization.expression('hasRole(''ROLE_ADMIN'')')}">Edit offer</a>
+        </div>
+
+        </div>
+
+    </div>
+    <nav aria-label="Page navigation">
+        <ul class="pagination">
+            <li class="page-item" th:classappend="${offers.isFirst() ? 'disabled' : ''}">
+                <a th:unless="${offers.isFirst()}" class="page-link"
+                   th:href="@{/offers/all(size=${offers.getSize()}, page=${0})}">First</a>
+                <a th:if="${offers.isFirst()}" class="page-link" href="#">First</a>
+            </li>
+            <li class="page-item" th:classappend="${offers.hasPrevious() ? '' : 'disabled'}">
+                <a th:if="${offers.hasPrevious()}"
+                   th:href="@{/offers/all(size=${offers.getSize()},page=${offers.getNumber() - 1})}"
+                   class="page-link" href="#">Previous</a>
+                <a th:unless="${offers.hasPrevious()}"
+                   class="page-link" href="#">Previous</a>
+            </li>
+
+            <li class="page-item" th:classappend="${offers.hasNext() ? '' : 'disabled'}">
+                <a th:if="${offers.hasNext()}"
+                   th:href="@{/offers/all(size=${offers.getSize()},page=${offers.getNumber() + 1})}"
+                   class="page-link" href="#">Next</a>
+                <a th:unless="${offers.hasNext()}"
+                   class="page-link" href="#">Next</a>
+            </li>
+
+            <li class="page-item" th:classappend="${offers.isLast() ? 'disabled' : ''}">
+                <a th:unless="${offers.isLast()}" class="page-link"
+                   th:href="@{/offers/all(size=${offers.getSize()}, page=${offers.getTotalPages() - 1})}">Last</a>
+                <a th:if="${offers.isLast()}" class="page-link" href="#">Last</a>
+            </li>
+        </ul>
+    </nav>
+        </div>
+
+
+</body>
+</html>

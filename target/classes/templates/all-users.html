@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+
+<body class="all-users-page">
+
+<div th:replace="fragments/header :: header"></div>
+
+<div th:if="${successMessage}">
+  <p class="success-message" th:text="${successMessage}"></p>
+</div>
+
+<table>
+  <thead>
+  <tr>
+    <th>Username</th>
+    <th>Roles</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr th:each="user: ${users}" th:object="${user}">
+    <td class="field" th:text="*{username}"></td>
+    <td>
+      <ul class="roles">
+        <li class="field" th:each="role: ${user.roles}" th:text="${role.role}"></li>
+      </ul>
+    </td>
+    <td>
+      <form method="POST" th:action="@{/admin/users/make-admin}">
+        <input type="hidden" name="username" th:value="${user.username}">
+        <button type="submit" th:if="${user.roles.size() == 1 and not #lists.contains(user.roles, 'ROLE_ADMIN')}"
+                class="makeAdminButton">Make Admin</button>
+      </form>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

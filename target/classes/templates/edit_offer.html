@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+  <head th:replace="fragments/head"></head>
+
+<body class="edit-offer-page">
+
+<div th:replace="fragments/header :: header"></div>
+
+<div class="form">
+
+  <h1>Edit Offers</h1>
+  <form th:action="@{/offers/{id}/edit(id=*{id})}" th:object="${offer}" th:method="POST">
+    <p>
+      <label>Description: <input type="text" th:field="*{description}"/></label>
+    </p>
+    <p>
+      <label>Name: <input type="text" th:field="*{name}"/></label>
+    </p>
+    <p>
+      <label> Price: <input type="text" th:field="*{price}"/></label>
+    </p>
+    <p>
+      <label>Weight: <input type="text" th:field="*{weight}"/></label>
+    </p>
+    <label class="text-white font-weight-bold" for="image_url">Image</label>
+    <input id="image_url"
+           th:field="*{image_url}"
+           type="url"
+           class="form-control"/>
+
+    <button class="button" type="submit">Save</button>
+  </form>
+</div>
+</body>
+
+</html>
