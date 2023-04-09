@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head"></head>
+
+<body class="details-page">
+<div th:replace="fragments/header :: header"></div>
+
+
+
+<div th:object="${offer}" class="details-container-fluid">
+
+    <ul class="offer-details list-group list-group-flush">
+
+        <div>
+            <button onclick="history.back()" class="detail-back-button">Back</button>
+
+            <li class="detail">
+                <div class="card-text">• Description:
+                    <h4 th:text="*{description}"></h4>
+
+                </div>
+                <div class="card-text">• Name:
+                    <span th:text="*{name}"></span>
+
+                </div>
+                <div class="card-text">• Price:
+                    <span th:text="*{price}"></span>
+
+                    <th:block th:text="euro"></th:block>
+                </div>
+                <div class="detail-card-text">• Weight:
+                    <span th:text="*{weight}"></span>
+
+                    <th:block th:text="grams"></th:block>
+                </div>
+
+                <div class="card-body">
+
+
+                <div class="card-text">
+                    <img class="detail-image-offer" th:src="*{image_url}" alt="Series image">
+
+                </div>
+            </li>
+        </div>
+    </ul>
+
+</div>
+
+</body>
+</html>
