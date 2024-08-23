@@ -79,7 +79,7 @@ public class OffersController {
 
 
     @GetMapping("/delete/{id}")
-    public String deleteUser(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,Model model) {
+    public String deleteOffer(@PathVariable("id") Long id, RedirectAttributes redirectAttributes,Model model) {
         OfferDto offerDto = this.offerService.findById(id);
         if(offerDto == null){
             throw new ObjectNotFoundException(id,"offer");
@@ -113,7 +113,7 @@ public class OffersController {
     }
 
     @PostMapping("/{id}/edit")
-    public String editMovie(@ModelAttribute("movie") OfferDto offerDto, RedirectAttributes redirectAttributes) {
+    public String editOffer(@ModelAttribute("movie") OfferDto offerDto, RedirectAttributes redirectAttributes) {
         Long id = offerDto.getId();
         this.offerService.editOffer(offerDto, id);
 

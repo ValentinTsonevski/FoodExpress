@@ -8,7 +8,7 @@ public class OfferDto {
 
     private double price;
 
-    private int weight;
+    private double weight;
 
     private String image_url;
 
@@ -51,11 +51,11 @@ public class OfferDto {
         return this;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public OfferDto setWeight(int weight) {
+    public OfferDto setWeight(double weight) {
         this.weight = weight;
         return this;
     }

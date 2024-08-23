@@ -15,6 +15,7 @@ import org.springframework.security.web.context.DelegatingSecurityContextReposit
 import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.RequestAttributeSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
+import org.springframework.security.web.csrf.CookieCsrfTokenRepository;
 
 
 @Configuration
@@ -53,7 +54,9 @@ public class SecurityConfiguration {
                 invalidateHttpSession(true).
                 and().
                 securityContext().
-                securityContextRepository(securityContextRepository);
+                securityContextRepository(securityContextRepository).and()
+                .csrf()
+                .csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse());
 
         return http.build();
     }

@@ -27,6 +27,7 @@ public class CartServiceImpl implements CartService {
         this.modelMapper = modelMapper;
     }
 
+
     @Override
     public CartDto save(CartDto cartDto) {
         CartEntity cartEntity = mapCartDtoToEntity(cartDto);
@@ -58,6 +59,7 @@ public class CartServiceImpl implements CartService {
                 if (offers.removeIf(offer -> offer.getId().equals(offerToRemove.getId()))) {
                     save(cart);
                 }
+
             }
         }
     }

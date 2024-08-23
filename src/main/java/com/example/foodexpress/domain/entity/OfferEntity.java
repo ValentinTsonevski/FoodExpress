@@ -6,7 +6,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Size;
 
-
 @Entity
 @Table(name = "offers")
 public class OfferEntity extends BaseEntity{
@@ -19,7 +18,7 @@ public class OfferEntity extends BaseEntity{
     private double price;
 
     @Column(nullable = false)
-    private int weight;
+    private double weight;
 
     @Column
     private String description;
@@ -49,11 +48,11 @@ public class OfferEntity extends BaseEntity{
         return this;
     }
 
-    public int getWeight() {
+    public double getWeight() {
         return weight;
     }
 
-    public OfferEntity setWeight(int weight) {
+    public OfferEntity setWeight(double weight) {
         this.weight = weight;
         return this;
     }

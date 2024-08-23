@@ -9,9 +9,7 @@ import com.example.foodexpress.service.OfferService;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 
 @Service
@@ -68,7 +66,7 @@ public class OfferServiceImpl implements OfferService {
 
 
 
-    private OfferDetailsViewDto map(OfferEntity offerEntity) {
+    public OfferDetailsViewDto map(OfferEntity offerEntity) {
 
         return new OfferDetailsViewDto().setId(offerEntity.getId())
                 .setDescription(offerEntity.getDescription())

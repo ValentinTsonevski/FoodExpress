@@ -1,6 +1,5 @@
 package com.example.foodexpress.service.impl;
 
-
 import com.example.foodexpress.domain.dtos.user.UserRoleModelDto;
 import com.example.foodexpress.domain.entity.UserRoleEntity;
 import com.example.foodexpress.domain.enums.UserRoleEnum;
@@ -13,7 +12,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Order(0)
 @Service
@@ -28,7 +26,6 @@ public class UserRoleServiceImpl implements DataBaseInitService {
         this.modelMapper = modelMapper;
         this.dbInit();
     }
-
 
     @Override
     public void dbInit() {
